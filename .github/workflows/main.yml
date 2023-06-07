@@ -19,4 +19,4 @@ jobs:
 
       - name: Build
         run: |
-          go build -o mini-project .main/go
+          go build -o crud .main/go
