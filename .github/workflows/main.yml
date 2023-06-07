@@ -3,20 +3,37 @@ name: CI/CD
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.20'
-
       - name: Build
         run: |
-          go build -o crud .main/go
+          echo "Building the application..."
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Test
+        run: |
+          echo "Running tests..."
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy
+        run: |
+          echo "Deploying the application..."
